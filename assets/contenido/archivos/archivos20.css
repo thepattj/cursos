@@ -1,0 +1,243 @@
+/*!
+ * Start Bootstrap - Modern Business HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Global Styles */
+
+html,
+body {
+    height: 100%;
+	color:#ffffff;
+}
+
+body {
+}
+
+.img-portfolio {
+    margin-bottom: 30px;
+}
+
+.img-hover:hover {
+    opacity: 0.8;
+}
+
+/* Home Page Carousel */
+
+header.carousel {
+    height: 50%;
+}
+
+header.carousel .item,
+header.carousel .item.active,
+header.carousel .carousel-inner {
+    height: 100%;
+}
+
+header.carousel .fill {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+/* 404 Page Styles */
+
+.error-404 {
+    font-size: 100px;
+}
+
+/* Pricing Page Styles */
+
+.price {
+    display: block;
+    font-size: 50px;
+    line-height: 50px;
+}
+
+.price sup {
+    top: -20px;
+    left: 2px;
+    font-size: 20px;
+}
+
+.period {
+    display: block;
+    font-style: italic;
+}
+
+/* Footer Styles */
+
+footer {
+    margin: 50px 0;
+}
+
+/* Responsive Styles */
+
+@media(max-width:991px) {
+    .customer-img,
+    .img-related {
+        margin-bottom: 30px;
+    }
+}
+
+@media(max-width:767px) {
+    .img-portfolio {
+        margin-bottom: 15px;
+    }
+
+    header.carousel .carousel {
+        height: 70%;
+    }
+}
+
+/*REMO*/
+.body{
+	min-height: 100%;
+	background-image: url('../imagenes/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+	background-color: #ffffff;
+}
+.cont-videos{
+	margin-top: 0%;
+}
+
+.navbar-default {
+    background-color: transparent;
+}
+.modal-content{
+	background-color: #FFF;
+}
+.modal-header{
+	border: none;
+}
+button.close {
+    color: #000000 !important;
+	opacity: 1;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #ddac49;
+    border: none;
+}
+.btn-primaryTwo {
+    color: #fff;
+    background-color: #2b99ec;
+    border: none;
+}
+.footer{
+	height:13%;
+	background-color: #ddac49;
+}
+.logo-remo, .play{
+	transition: all .2s ease-in-out;
+	min-height: 200px;
+	max-height: 200px;
+}
+.logo-remo:hover, .play:hover{
+	transform: scale(1.03);
+}
+@media(max-width:768px) {
+    .body{
+		height: auto;
+	}
+	.footer{
+		height:auto;
+	}
+}
+.panel-blanco{
+    background-color: transparent;
+}
+.panel-azul{
+    border-color: #ddac49;
+    background-color: transparent;
+}
+.blues{
+    color: #ddac49;
+}
+.subtitulos{
+    color: white;
+    font-size: 25px;
+}
+.subEnlaces{
+    color: white;
+    font-size: 16px;
+}
+
+/*
+
+FUENTES
+
+@font-face {
+        font-family: "FuturaLight";
+        src: url("fuentes/FuturaLight.otf");
+}
+
+*/
+
+@font-face {
+        font-family: "FuturaBold";
+        src: url("fuentes/futura-bold-condensed-bt.ttf");
+}
+
+.panel-azul-claro{
+    border-width: 3px;
+    border-color: #89847e;
+    background-color: transparent;
+}
+
+.tituloAzul{
+    color: #000000 !important;
+    font-size: 40px;
+    font-family: FuturaBold;
+}
+
+
+.sinAcceso{
+    color: #FFFFFF !important;
+    font-size: 60px;
+    font-family: FuturaBold;
+}
+
+.cursos{
+    color: #ddac49 !important;
+    font-size: 25px;
+}
+
+.contenido{
+    color: #ddac49 !important;
+    font-size: 25px;
+}
+
+.azulN{
+    color: #FFFFFF !important;    
+}
+
+.botonAzul{
+    font-family: FuturaBold;
+    font-size: 20px;
+    color: #000000;
+    background-color: #b9b2a9 !important;
+    border: 3px solid #89847e;
+    padding: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: auto;
+    box-shadow: 0px 5px 5px grey;
+  cursor: pointer;
+}
+
+
+.blancosTransparentes{
+background: rgba(255,255,255, .7);
+ color: black !important;
+}
+
+
+
+
+
+
+
