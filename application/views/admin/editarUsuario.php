@@ -1,5 +1,5 @@
               <BR>
-              <h3><i class="fa fa-angle-right"></i>&nbsp;Agregar Usuario</h3>
+              <h3><i class="fa fa-angle-right"></i>&nbsp;Editar Usuario</h3>
             
               <!-- BASIC FORM ELELEMNTS -->
               <div class="row mt">
@@ -8,33 +8,34 @@
                 <span>
                     <?php echo validation_errors(); ?>  
                 </span>
-                <?=form_open_multipart(base_url()."admin/guardarUsuario")?>
+                <?=form_open_multipart(base_url()."admin/actualizarUsuario/".$nocurso)?>
 
                   <div class="form-panel">
                       <div class="form-horizontal style-form" method="get">
                           <BR>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Nombre</label>
-                              <div class="col-sm-10">
-                                  <input type="text" name="nombre" class="form-control" placeholder="Nombre" required>
-                              </div>
-                          </div>
+                          <input type="hidden" name="country" value="<?php echo $id; ?>" class="form-control" >
+
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Usuario</label>
                               <div class="col-sm-10">
-                                  <input type="text" name="nombre" class="form-control" placeholder="Usuario" required>
+                                  <input type="text" name="usuario" value="<?php echo $U; ?>" class="form-control"  required>
                               </div>
                           </div>
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Contraseña</label>
                               <div class="col-sm-10">
-                                  <input type="text" name="nombre" class="form-control" placeholder="Max. 6 caracteres." required>
+                                  <input type="text" value="<?php echo $CP; ?>" name="cp" value class="form-control" placeholder="Max. 6 caracteres." required>
                               </div>
                           </div>
+                              <?php $tipos = ['Inactivo', 'Activo']; ?>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Correo</label>
+                              <label class="col-sm-2 col-sm-2 control-label">Status</label>
                               <div class="col-sm-10">
-                                  <input type="text" name="nombre" class="form-control" placeholder="example@servidor.com" required>
+                                  <select class="form-control" name="state">
+                                      <option value="1" <?php if( $D == '1'){echo "selected"; } ?> >Si</option>
+                                      <option value="0" <?php if( $D == '0'){echo "selected"; } ?> >No</option>
+                                </select>
+                                 <!-- <input type="text" name="nombre" value="<?php/* echo $tipos[$D];*/ ?>"  class="form-control" placeholder="example@servidor.com" required>-->
                               </div>
                           </div>
                           <div class="form-group">
@@ -44,7 +45,7 @@
                               <button type="submit" class="btn btn-success btn-block">GUARDAR</button>
                             </div>
                             <div class="col-lg-3">
-                              <a href="<?php echo base_url()."admin/curso/".$nocurso; ?>">
+                              <a href="<<?php echo base_url()."admin/curso/".$nocurso; ?>">
                                 <div type="button" class="btn btn-danger btn-block" onclick="">CANCELAR</div>                              
                               </a>
                             </div>

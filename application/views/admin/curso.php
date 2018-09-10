@@ -44,8 +44,7 @@
                     </style>
 
                     <!-- VISTA UNO -->
-                    <div id="contenidoUno" style="min-height: 100%; background-image: url(<?php echo base_url()."assets/contenido/".$fondo; ?>);
-                                                   background-size: cover; background-position: center; background-color: #ffffff;">
+                    <div id="contenidoUno" style="min-height: 100%; background-image: url(<?php echo base_url()."assets/contenido/".$fondo; ?>); background-size: cover; background-position: center; background-color: #ffffff;">
                       <BR><BR><BR>
                       <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-2 text-center"></div>
@@ -91,8 +90,7 @@
 
 
                     <!-- VISTA DOS -->
-                    <div id="contenidoDos" style="min-height: 100%; background-image: url(<?php echo base_url()."assets/contenido/".$fondo; ?>);
-                                                   background-size: cover; background-position: center; background-color: #ffffff; display: none">
+                    <div id="contenidoDos" style="min-height: 100%; background-image: url(<?php echo base_url()."assets/contenido/".$fondo; ?>); background-size: cover; background-position: center; background-color: #ffffff; display: none">
                       <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"></div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
@@ -148,8 +146,7 @@
 
 
                     <!-- VISTA TRES -->
-                    <div id="contenidoTres" style="min-height: 100%; background-image: url(<?php echo base_url()."assets/contenido/".$fondo; ?>);
-                                                   background-size: cover; background-position: center; background-color: #ffffff; display: none">
+                    <div id="contenidoTres" style="min-height: 100%; background-image: url(<?php echo base_url()."assets/contenido/".$fondo; ?>); background-size: cover; background-position: center; background-color: #ffffff; display: none">
                       <BR><BR><BR><BR><BR>
 
                       <div class="row">
@@ -315,7 +312,7 @@
                           <li class="list-primary">
                             <i class=" fa fa-ellipsis-v"></i>
                             <div class="task-title">
-                              <span class="task-title-sp"><?php echo "Archivo ".$i; ?></span>
+                              <span class="task-title-sp"><?php echo $tituloa[$i]; ?></span>
                               <div class="pull-right hidden-phone">
                                 <a href="" class="btn btn-success btn-xs fa fa-download"></a>
                                 <a href="" class="btn btn-danger btn-xs fa fa-trash-o"></a>
@@ -348,7 +345,7 @@
                       <div class="col-md-8 col-sm-8 box0">
                         <div class="box1">
                           <span class="li_stack"></span>
-                          <h3><?php echo $totalArchivos; ?> Usuarios</h3>
+                          <h3><?php echo $totalUsuarios; ?> Usuarios</h3>
                         </div>
                       </div>
                       <div class="col-md-2 col-sm-2 box0"></div>
@@ -360,24 +357,30 @@
                   <section class="task-panel tasks-widget">
                     <div class="panel-heading">
                       <div class="pull-left">
-                        <h4><i class="fa fa-angle-right"></i>&nbsp;<?php echo $totalArchivos." Usuarios"; ?> </h4>
+                        <h4><i class="fa fa-angle-right"></i>&nbsp;<?php echo $totalUsuarios." Usuarios"; ?> </h4>
                       </div>
                       <BR>
                     </div>
                     <div class="panel-body">
                       <div class="task-content">
                         <ul id="sortable" class="task-list">
-                          <?php 
-                          for ($i=0; $i < $totalArchivos; $i++) { 
+                            
+                             
+                            
+                          <?php
+                            $tipos = ['bg-important', 'bg-info']; 
+                            $tiposTxt = ['Inactivo', 'Activo'];
+                          for ($i=0; $i < $totalUsuarios; $i++) { 
                           ?>
 
                           <li class="list-primary">
                             <i class=" fa fa-ellipsis-v"></i>
                             <div class="task-title">
-                              <span class="task-title-sp"><?php echo "Usuario ".$i; ?></span>
+                              <span class="task-title-sp"><?php echo $nuser[$i]; ?></span>
+                              <span class="badge <?php echo $tipos[$ndisp[$i]]; ?>"><?php echo $tiposTxt[$ndisp[$i]]; ?></span>
                               <div class="pull-right hidden-phone">
-                                <a href="" class="btn btn-primary btn-xs btn-xs fa fa-pencil"></a>
-                                <a href="" class="btn btn-danger btn-xs fa fa-trash-o"></a>
+                                <a href="<?php echo base_url()."admin/editarUsuario/".$unico[$i]."/".$id; ?>" class="btn btn-primary btn-xs btn-xs fa fa-pencil"></a>
+                                <a href=""  data-toggle="modal" data-target="#myModalU<?php echo $unico[$i]; ?>" onclick="corroborainfo()" class="btn btn-danger btn-xs fa fa-trash-o"></a>
                               </div>
                             </div>
                           </li>
@@ -389,7 +392,7 @@
                         </ul>
                       </div>
                       <div class=" add-task-row">
-                        <a class="btn btn-info btn-sm pull-right" href="<?php echo base_url()."admin/adherirArchivo/".$id; ?>">Añadir Usuario</a>
+                        <a class="btn btn-info btn-sm pull-right" href="<?php echo base_url()."admin/agregarUsuario/".$id; ?>">Añadir Usuario</a>
                       </div>
                     </div>
                   </section>
@@ -421,8 +424,35 @@
                   </div>
                 </div>
               </div>  
-
-
+                    
+                    
+                    <!--MODAL PARA LA ELIMINACION DE USUARIOS ************FALTA EL CONTROLADOR-->
+                          <?php 
+                          for ($i=0; $i < $totalUsuarios; $i++) { 
+                          ?>
+              <div class="modal fade" id="myModalU<?php echo $unico[$i]; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <BR><BR>
+                <BR><BR>
+                <BR><BR>
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header" style="background-color: #7e1524">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel">ELIMINAR</h4>
+                    </div>
+                    <div class="modal-body">
+                      ¿Estas seguro de que deseas Desactivar al usuario <?php echo $nuser[$i]; ?> ?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                      <a href="<?php echo base_url()."admin/eliminarUsuario/".$unico[$i]."/".$id; ?>" class="btn btn-primary">Desactivar</a>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+                          <?php
+                          }//end of for
+                          ?>
 
             
               <div class="modal fade" id="myModalRule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

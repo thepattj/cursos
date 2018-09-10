@@ -154,6 +154,7 @@ class generales extends CI_Controller {
             foreach ($queryImg->result_array() as $rewArchivos) {
               $data['archivos'][$tltQuery] = $rewArchivos['url']."/".$rew['nombre']; 
               $data['archivosID'][$tltQuery] = $rewArchivos['id']; 
+              $data['tituloa'][$tltQuery] = $rewArchivos['titulo'];
               $tltQuery = $tltQuery + 1;
             }
           }

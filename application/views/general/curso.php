@@ -35,7 +35,7 @@
                           <li class="list-primary">
                             <i class=" fa fa-ellipsis-v"></i>
                             <div class="task-title">
-                              <span class="task-title-sp"><?php echo "Archivo ".$i; ?></span>
+                              <span class="task-title-sp"><?php echo $tituloa[$i]; ?></span>
                               <div class="pull-right hidden-phone">
                                 <a href="" class="btn btn-success btn-xs fa fa-download"></a>
                               </div>
