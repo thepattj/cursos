@@ -261,7 +261,8 @@
                     <BR>
                     <div class="row">
                       <div class="col-md-6 col-sm-6 box0">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">EDITAR</button>
+
+                        <a href="<?php echo base_url()."admin/editarCurso/".$id; ?>" class="btn btn-success btn-lg btn-block">EDITAR</a>
                       </div>
                       <div class="col-md-6 col-sm-6 box0">
                         <button type="button" class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#myModal">ELIMINAR</button>
@@ -307,15 +308,16 @@
                         <ul id="sortable" class="task-list">
                           <?php 
                           for ($i=0; $i < $totalArchivos; $i++) { 
+                              $j = 1 + $i;
                           ?>
 
                           <li class="list-primary">
                             <i class=" fa fa-ellipsis-v"></i>
                             <div class="task-title">
-                              <span class="task-title-sp"><?php echo $tituloa[$i]; ?></span>
+                              <span class="task-title-sp"><?php echo $tituloArch[$i]; ?></span>
                               <div class="pull-right hidden-phone">
-                                <a href="" class="btn btn-success btn-xs fa fa-download"></a>
-                                <a href="" class="btn btn-danger btn-xs fa fa-trash-o"></a>
+                                <a class="btn btn-success btn-xs fa fa-download" download="<?php echo $tituloArch[$i]; ?>" target="new" href="<?php echo base_url()."assets/contenido/".$archivos[$i]; ?>" class="list-group-item list-group-item-action blancosTransparentes" ></a>
+                                <div class="btn btn-danger btn-xs fa fa-trash-o" data-toggle="modal" data-target="#myModal<?php echo $i; ?>"></div>
                               </div>
                             </div>
                           </li>
@@ -327,7 +329,7 @@
                         </ul>
                       </div>
                       <div class=" add-task-row">
-                        <a class="btn btn-info btn-sm pull-right" href="<?php echo base_url()."admin/adherirArchivo/".$id; ?>">Añadir Archivo</a>
+                        <a class="btn btn-info btn-sm pull-right" href="<?php echo base_url()."admin/agregarArchivo/".$id; ?>">Añadir Archivo</a>
                       </div>
                     </div>
                   </section>
@@ -481,6 +483,40 @@
                   </div>
                 </div>
               </div>  
+
+
+
+
+<?php 
+for ($i=0; $i < $totalArchivos; $i++) { 
+  $j = 1 + $i;
+?>
+
+             <div class="modal fade" id="myModal<?php echo $i; ?>"" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <BR><BR>
+                <BR><BR>
+                <BR><BR>
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header" style="background-color: #7e1524">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel">ELIMINAR</h4>
+                    </div>
+                    <div class="modal-body">
+                      ¿Estas seguro de que deseas eliminar el archivo "<?php echo $tituloArch[$i]; ?>"?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                      <a href="<?php echo base_url()."admin/eliminarArchivo/".$archivosID[$i]; ?>" class="btn btn-primary">Eliminar</a>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+
+<?php
+}//end of for
+?>
+
 
 
               <script type="text/javascript">

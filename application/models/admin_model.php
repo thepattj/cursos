@@ -38,6 +38,10 @@ class Admin_model extends CI_Model {
       return $this->db->get('curso');
    }//end of getCurso
 
+   function updateCurso($id, $data){
+      $this->db->where('id', $id);
+      $this->db->update('curso', $data); 
+   }
 
    //SE AGREGA ESTA NUEVA FUNCION PARA VALIDAR LOS USUARIOS
    function getUsuarioWhere($data){
@@ -45,6 +49,13 @@ class Admin_model extends CI_Model {
       $this->db->where($where);
       return $this->db->get('usuario'); 
    }//end of func
+
+
+   function deleteCurso($id){
+      $where = "id = ".$id; 
+      $this->db->where($where);
+      $this->db->delete('curso');
+   }
 
 }//end of fun?
 
