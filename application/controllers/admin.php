@@ -893,6 +893,8 @@ class admin extends CI_Controller {
 
     public function ajustes(){
       $this -> verificarCredenciales();
+        $di = $this->session->userdata('idSessionBack');
+      $data['idse'] = $di;
       $data['opcionMenu'] = '3';
       $this -> load ->view('admin/header', $data);
       $this -> load ->view('admin/footer');
