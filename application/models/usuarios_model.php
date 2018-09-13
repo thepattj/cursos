@@ -6,17 +6,22 @@ class Usuarios_Model extends CI_Model {
         //Se carga la bd .
         $this->load->database();
     }
-    
+    //SE USA PARA OBTENER TODOS LOS USUARIOS
     function getAllUsuarios(){
-      $this->db->query("SELECT * FROM curso;");
+      $this->db->query("SELECT * FROM usuario;");
       return $this->db->get('usuario'); 
     }
-
+    //CREA UN USUARIO CON ID Y CONTRASEÑA
    function createUsuario($data){
       $this->db->insert('usuario', $data);
    }//end of func
     
-
+    function getpUsuario($id){
+        $where = 'id = '.$id;
+        $this->db->query("SELECT * FROM usuario");
+        $this->db->where($where);
+        return $this->db->get('usuario'); 
+    }
     //USUARIOS DISTINTOS A LOS QUE ESTAN EN CURSOS PARA PODER AGREGAR EN UN CURSO.
    function getUsuarios($idCurs){
 

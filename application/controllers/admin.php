@@ -128,31 +128,9 @@ class admin extends CI_Controller {
 
     
     /********************************* USUARIOS  ***********************************/
-    public function usuarios(){
-        $this -> verificarCredenciales();
-        $di = $this->session->userdata('idSessionBack');
-        $data['idse'] = $di;
-        $data['opcionMenu'] = '1';
 
-        $contador = 0;
-        $queryz = $this->Usuarios_Model->getAllUsuarios();
-        $data['totalu'] = $queryz -> num_rows();
-
-        if ($queryz->num_rows()>0) {
-          foreach($queryz->result_array() as $rowz){
-            $data['id'][$contador] = $rowz['id'];
-            $data['user'][$contador] = $rowz['usuario'];
-            $data['state'][$contador] = $rowz['disponible'];
-            //echo "--".$row['id']."--".$row['nombre']."--".$row['publicado']."<BR>";
-            $contador ++;
-          }//end of forEach
-        }//end of if
-
-        $this -> load ->view('admin/header', $data);
-        $this -> load ->view('admin/usuarios');
-        $this -> load ->view('admin/footer');
-    }
     
+    //funcion que agrega el usuario a un curso
     public function agregarUsuario($id){
       $this -> verificarCredenciales();
       $di = $this->session->userdata('idSessionBack');
@@ -179,7 +157,7 @@ class admin extends CI_Controller {
       $this -> load ->view('admin/agregarUsuario');
       $this -> load ->view('admin/footer');
     }
-
+    //funcion que guarda un usuario desde un curso, ante esto agrega el permiso
     public function guardarUsuario(){
       $this -> verificarCredenciales();
       $di = $this->session->userdata('idSessionBack');
@@ -220,7 +198,7 @@ class admin extends CI_Controller {
       redirect( base_url()."admin/curso/".$this->input->post('curso'));
 
     }
-    
+    //edita el usuario desde un curso
     public function editarUsuario($unico, $curso){
       $this -> verificarCredenciales();
       $di = $this->session->userdata('idSessionBack');
@@ -242,8 +220,9 @@ class admin extends CI_Controller {
       $this -> load ->view('admin/header', $data);
       $this -> load ->view('admin/editarUsuario');
       $this -> load ->view('admin/footer');
-    }
-    
+    }   
+
+    //boton de agregar el usuario
     public function actualizarUsuario($nocurso){
 
         $this -> verificarCredenciales();
@@ -268,6 +247,110 @@ class admin extends CI_Controller {
         //$id = $this -> session -> userdata(idSessionBack);
         $this->Usuarios_Model->deleteUser($id, $iddata);
         redirect(Base_url()."admin/curso/".$iddata);
+    }
+    
+    
+    
+    
+    /*--------------DESDE EL MENU DE USUARIOS------------*/
+    public function usuarios(){
+        $this -> verificarCredenciales();
+        $di = $this->session->userdata('idSessionBack');
+        $data['idse'] = $di;
+        $data['opcionMenu'] = '3';
+
+        $contador = 0;
+        $queryz = $this->Usuarios_Model->getAllUsuarios();
+        $data['totalu'] = $queryz -> num_rows();
+
+        if ($queryz->num_rows()>0) {
+          foreach($queryz->result_array() as $rowz){
+            $data['id'][$contador] = $rowz['id'];
+            $data['user'][$contador] = $rowz['usuario'];
+            $data['state'][$contador] = $rowz['disponible'];
+            //echo "--".$row['id']."--".$row['nombre']."--".$row['publicado']."<BR>";
+            $contador ++;
+          }//end of forEach
+        }//end of if
+
+        $this -> load ->view('admin/header', $data);
+        $this -> load ->view('admin/usuarios');
+        $this -> load ->view('admin/footer');
+    }
+    
+    //funcion que sirve para abrir la view
+    public function crearUsuario(){
+        $this -> verificarCredenciales();
+      $di = $this->session->userdata('idSessionBack');
+      $data['idse'] = $di;
+      $data['opcionMenu'] = '4';
+
+      $this -> load ->view('admin/header', $data);
+      $this -> load ->view('admin/crearUsuario');
+      $this -> load ->view('admin/footer');
+    }
+    
+    //funcion que crea el usuario desde el menu
+    public function creaUsuario(){
+        $this -> verificarCredenciales();
+        $di = $this->session->userdata('idSessionBack');
+        $data['idse'] = $di;
+        $data['opcionMenu'] = '4';
+        
+        $dataz = array(
+          'usuario' => $this->input->post('nombre'),
+          'contrasena' => $this->input->post('pass'),
+          'disponible' => '1'
+        );
+
+        //echo "<BR>---nombre".$this->input->post('nombre')."pass".$this->input->post('pass')."-";
+
+
+        $this->Usuarios_Model->createUsuario($dataz);
+        $this->usuarios();
+    }
+    
+    //edita el usuario desde el menu
+    public function editaUsuario($unico){
+        $this -> verificarCredenciales();
+        $di = $this->session->userdata('idSessionBack');
+        $data['idse'] = $di;
+        $data['opcionMenu'] = '4';
+        echo "id.persona".$unico;
+        $queryUs = $this->Usuarios_Model->getpUsuario($unico);
+      
+        if($queryUs->num_rows()>0) {
+          foreach ($queryUs->result_array() as $ruwU) {
+              $data['U'] = $ruwU['usuario']; 
+              $data['CP'] = $ruwU['contrasena'];
+              $data['D'] = $ruwU['disponible'];
+            }//end of foreach
+          }
+        //echo "--persona".$data['U']."--status".$data['D'];
+        
+        $this -> load ->view('admin/header', $data);
+        $this -> load ->view('admin/editarmUsuario');
+        $this -> load ->view('admin/footer');
+    }
+    
+    //actualiza el usuario que es mandado del edita del menu
+    public function actualizaUsuario($nocurso){
+
+        $this -> verificarCredenciales();
+        $data['opcionMenu'] = '1';
+
+
+        $data = array(
+            'usuario' => $this->input->post('usuario'),
+            'contrasena' => $this->input->post('cp')
+        );
+        
+        $this->Usuarios_Model->updateUsuario($data, $us);
+        
+        //PERMISO
+        $this->Usuarios_Model->updatePermiso($us, $nocurso, $this->input->post('state'));
+        
+        redirect(base_url()."admin/curso/".$nocurso);
     }
 
 // $rulsMenu = ['inicio', 'cursos', 'crearCurso', 'ajustes', 'salir'];
