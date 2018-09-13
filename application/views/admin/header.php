@@ -62,10 +62,10 @@
               	  <BR>
 
                   <?php
-                  $nombresMenu = ['INICIO', 'CURSOS', 'CREAR CURSOS', 'AJUSTES', 'SALIR'];
+                  $nombresMenu = ['INICIO', 'CURSOS', 'CREAR CURSO', 'USUARIOS', 'CREAR USUARIO', 'AJUSTES', 'SALIR'];
                   $nombresMenuG = ['INICIO', 'CURSOS', 'SALIR'];
-                  $iconoMenu = ['fa-dashboard', 'fa-tasks', 'fa-book', 'fa-cogs', 'fa-arrow-circle-right'];
-                  $rulsMenu = ['inicio', 'cursos', 'crearCurso', 'ajustes', 'salir'];
+                  $iconoMenu = ['fa-dashboard', 'fa-tasks', 'fa-book', 'fa-users', 'fa-plus-circle"', 'fa-cogs', 'fa-arrow-circle-right'];
+                  $rulsMenu = ['inicio', 'cursos', 'crearCurso', 'usuarios', 'crearUsuario', 'ajustes', 'salir'];
                   $rulsMenuG = ['inicio', 'cursos', 'salir'];
 
                   if($idse == '0') {

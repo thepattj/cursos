@@ -1,18 +1,23 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Usuarios_Model extends CI_Model {
-
-   function __construct()
-   {
-      parent::__construct();
-      //Se carga la bd .
-      $this->load->database();
-   }
+    function __construct(){
+        parent::__construct();
+        //Se carga la bd .
+        $this->load->database();
+    }
+    
+    function getAllUsuarios(){
+      $this->db->query("SELECT * FROM curso;");
+      return $this->db->get('usuario'); 
+    }
 
    function createUsuario($data){
       $this->db->insert('usuario', $data);
    }//end of func
+    
 
+    //USUARIOS DISTINTOS A LOS QUE ESTAN EN CURSOS PARA PODER AGREGAR EN UN CURSO.
    function getUsuarios($idCurs){
 
       $where="permisos.idcurso <> ".$idCurs." AND usuario.disponible = 1 AND permisos.idusuario NOT IN (SELECT permisos.idusuario FROM permisos WHERE permisos.idcurso = ".$idCurs.")";
@@ -41,7 +46,9 @@ class Usuarios_Model extends CI_Model {
       $this -> db -> where($where);
       $this -> db -> update('permisos', $data);
    }
-
+    
+    
+//    USUARIOS SEGUN PERMISOS
    function getUseru($id, $curso){
       $where="permisos.idCurso =".$curso. " AND usuario.id =".$id;
       $this->db->select("usuario.usuario, usuario.contrasena, permisos.activoCurso");
