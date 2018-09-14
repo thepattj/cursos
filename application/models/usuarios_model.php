@@ -93,6 +93,12 @@ class Usuarios_Model extends CI_Model {
       $this->db->insert('permisos', $data);
 
    }
+    
+    function eliminaUser($id){
+        $where = "id = ".$id; 
+        $this->db->where($where);
+        $this->db->delete('usuario');
+    }
 
 
 }//end of fun?

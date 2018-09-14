@@ -34,7 +34,7 @@
                                         <?php echo $tiposTxt[$state[$i]]; ?></span>
                                     <div class="pull-right hidden-phone">
                                         <a class="btn btn-primary btn-xs" href="<?php echo base_url()."admin/editaUsuario/".$id[$i]; ?>" ><i class="fa fa-pencil"></i></a>
-                                        <a class="btn btn-danger btn-xs" href="<?php echo base_url()."admin/eliminarUsuario/".$id[$i]; ?>" ><i class="fa fa-trash-o "></i></a>
+                                        <a class="btn btn-danger btn-xs" href="<?php echo base_url()."admin/eliminaUsuario/".$id[$i]; ?>" ><i class="fa fa-trash-o "></i></a>
                                     </div>
                                 </div>
                             </a>

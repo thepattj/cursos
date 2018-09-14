@@ -8,7 +8,7 @@
         <span>
             <?php echo validation_errors(); ?>
         </span>
-        <?=form_open_multipart(base_url()."admin/actualizaUsuario/")?>
+        <?=form_open_multipart(base_url()."admin/actualizaUsuario/".$idse)?>
 
         <div class="form-panel">
             <div class="form-horizontal style-form" method="get">

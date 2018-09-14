@@ -314,9 +314,9 @@ class admin extends CI_Controller {
     public function editaUsuario($unico){
         $this -> verificarCredenciales();
         $di = $this->session->userdata('idSessionBack');
-        $data['idse'] = $di;
+        $data['idse'] = $unico;
         $data['opcionMenu'] = '4';
-        echo "id.persona".$unico;
+        //echo "id.persona".$unico;
         $queryUs = $this->Usuarios_Model->getpUsuario($unico);
       
         if($queryUs->num_rows()>0) {
@@ -333,24 +333,28 @@ class admin extends CI_Controller {
         $this -> load ->view('admin/footer');
     }
     
+    public function eliminaUsuario($id){
+        //$this -> verificarCredenciales();
+        //$id = $this -> session -> userdata(idSessionBack);
+        $this->Usuarios_Model->eliminaUser($id);
+        redirect(Base_url()."admin/usuarios");
+    }
+    
     //actualiza el usuario que es mandado del edita del menu
-    public function actualizaUsuario($nocurso){
+    public function actualizaUsuario($nous){
 
         $this -> verificarCredenciales();
-        $data['opcionMenu'] = '1';
+        $data['opcionMenu'] = 3;
 
-
-        $data = array(
+        $datau = array(
             'usuario' => $this->input->post('usuario'),
-            'contrasena' => $this->input->post('cp')
+            'contrasena' => $this->input->post('cp'),
+            'disponible' => $this->input->post('state')
         );
         
-        $this->Usuarios_Model->updateUsuario($data, $us);
+        $this->Usuarios_Model->updateUsuario($datau,$nous);
         
-        //PERMISO
-        $this->Usuarios_Model->updatePermiso($us, $nocurso, $this->input->post('state'));
-        
-        redirect(base_url()."admin/curso/".$nocurso);
+        redirect(base_url()."admin/usuarios");
     }
 
 // $rulsMenu = ['inicio', 'cursos', 'crearCurso', 'ajustes', 'salir'];
