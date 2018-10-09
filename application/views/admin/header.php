@@ -65,7 +65,7 @@
                   $nombresMenu = ['INICIO', 'CURSOS', 'CREAR CURSO', 'USUARIOS', 'CREAR USUARIO', 'AJUSTES', 'SALIR'];
                   $nombresMenuG = ['INICIO', 'CURSOS', 'SALIR'];
                   $iconoMenu = ['fa-dashboard', 'fa-tasks', 'fa-book', 'fa-users', 'fa-plus-circle"', 'fa-cogs', 'fa-arrow-circle-right'];
-                  $rulsMenu = ['inicio', 'cursos', 'crearCurso', 'usuarios', 'crearUsuario', 'ajustes', 'salir'];
+                  $rulsMenu = ['inicio', 'cursos', 'crearCurso', 'generales', 'generales/crearUsuario', 'ajustes', 'salir'];
                   $rulsMenuG = ['inicio', 'cursos', 'salir'];
 
                   if($idse == '0') {

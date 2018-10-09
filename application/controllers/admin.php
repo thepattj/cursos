@@ -128,9 +128,7 @@ class admin extends CI_Controller {
 
     
     /********************************* USUARIOS  ***********************************/
-
     
-    //funcion que agrega el usuario a un curso
     public function agregarUsuario($id){
       $this -> verificarCredenciales();
       $di = $this->session->userdata('idSessionBack');
@@ -157,7 +155,7 @@ class admin extends CI_Controller {
       $this -> load ->view('admin/agregarUsuario');
       $this -> load ->view('admin/footer');
     }
-    //funcion que guarda un usuario desde un curso, ante esto agrega el permiso
+
     public function guardarUsuario(){
       $this -> verificarCredenciales();
       $di = $this->session->userdata('idSessionBack');
@@ -198,7 +196,7 @@ class admin extends CI_Controller {
       redirect( base_url()."admin/curso/".$this->input->post('curso'));
 
     }
-    //edita el usuario desde un curso
+    
     public function editarUsuario($unico, $curso){
       $this -> verificarCredenciales();
       $di = $this->session->userdata('idSessionBack');
@@ -220,9 +218,8 @@ class admin extends CI_Controller {
       $this -> load ->view('admin/header', $data);
       $this -> load ->view('admin/editarUsuario');
       $this -> load ->view('admin/footer');
-    }   
-
-    //boton de agregar el usuario
+    }
+    
     public function actualizarUsuario($nocurso){
 
         $this -> verificarCredenciales();
@@ -247,114 +244,6 @@ class admin extends CI_Controller {
         //$id = $this -> session -> userdata(idSessionBack);
         $this->Usuarios_Model->deleteUser($id, $iddata);
         redirect(Base_url()."admin/curso/".$iddata);
-    }
-    
-    
-    
-    
-    /*--------------DESDE EL MENU DE USUARIOS------------*/
-    public function usuarios(){
-        $this -> verificarCredenciales();
-        $di = $this->session->userdata('idSessionBack');
-        $data['idse'] = $di;
-        $data['opcionMenu'] = '3';
-
-        $contador = 0;
-        $queryz = $this->Usuarios_Model->getAllUsuarios();
-        $data['totalu'] = $queryz -> num_rows();
-
-        if ($queryz->num_rows()>0) {
-          foreach($queryz->result_array() as $rowz){
-            $data['id'][$contador] = $rowz['id'];
-            $data['user'][$contador] = $rowz['usuario'];
-            $data['state'][$contador] = $rowz['disponible'];
-            //echo "--".$row['id']."--".$row['nombre']."--".$row['publicado']."<BR>";
-            $contador ++;
-          }//end of forEach
-        }//end of if
-
-        $this -> load ->view('admin/header', $data);
-        $this -> load ->view('admin/usuarios');
-        $this -> load ->view('admin/footer');
-    }
-    
-    //funcion que sirve para abrir la view
-    public function crearUsuario(){
-        $this -> verificarCredenciales();
-      $di = $this->session->userdata('idSessionBack');
-      $data['idse'] = $di;
-      $data['opcionMenu'] = '4';
-
-      $this -> load ->view('admin/header', $data);
-      $this -> load ->view('admin/crearUsuario');
-      $this -> load ->view('admin/footer');
-    }
-    
-    //funcion que crea el usuario desde el menu
-    public function creaUsuario(){
-        $this -> verificarCredenciales();
-        $di = $this->session->userdata('idSessionBack');
-        $data['idse'] = $di;
-        $data['opcionMenu'] = '4';
-        
-        $dataz = array(
-          'usuario' => $this->input->post('nombre'),
-          'contrasena' => $this->input->post('pass'),
-          'disponible' => '1'
-        );
-
-        //echo "<BR>---nombre".$this->input->post('nombre')."pass".$this->input->post('pass')."-";
-
-
-        $this->Usuarios_Model->createUsuario($dataz);
-        $this->usuarios();
-    }
-    
-    //edita el usuario desde el menu
-    public function editaUsuario($unico){
-        $this -> verificarCredenciales();
-        $di = $this->session->userdata('idSessionBack');
-        $data['idse'] = $unico;
-        $data['opcionMenu'] = '4';
-        //echo "id.persona".$unico;
-        $queryUs = $this->Usuarios_Model->getpUsuario($unico);
-      
-        if($queryUs->num_rows()>0) {
-          foreach ($queryUs->result_array() as $ruwU) {
-              $data['U'] = $ruwU['usuario']; 
-              $data['CP'] = $ruwU['contrasena'];
-              $data['D'] = $ruwU['disponible'];
-            }//end of foreach
-          }
-        //echo "--persona".$data['U']."--status".$data['D'];
-        
-        $this -> load ->view('admin/header', $data);
-        $this -> load ->view('admin/editarmUsuario');
-        $this -> load ->view('admin/footer');
-    }
-    
-    public function eliminaUsuario($id){
-        //$this -> verificarCredenciales();
-        //$id = $this -> session -> userdata(idSessionBack);
-        $this->Usuarios_Model->eliminaUser($id);
-        redirect(Base_url()."admin/usuarios");
-    }
-    
-    //actualiza el usuario que es mandado del edita del menu
-    public function actualizaUsuario($nous){
-
-        $this -> verificarCredenciales();
-        $data['opcionMenu'] = 3;
-
-        $datau = array(
-            'usuario' => $this->input->post('usuario'),
-            'contrasena' => $this->input->post('cp'),
-            'disponible' => $this->input->post('state')
-        );
-        
-        $this->Usuarios_Model->updateUsuario($datau,$nous);
-        
-        redirect(base_url()."admin/usuarios");
     }
 
 // $rulsMenu = ['inicio', 'cursos', 'crearCurso', 'ajustes', 'salir'];
@@ -383,17 +272,15 @@ class admin extends CI_Controller {
       }//end of if
 
       $this -> load ->view('admin/header', $data);
-      $this -> load ->view('admin/cursos');
+      $this -> load ->view('admin/cursos', $data);
       $this -> load ->view('admin/footer');
     }//end of inicio
     
     //acceder a un solo curso
-    public function curso($id){
-
+/*    public function curso($id){
       $this -> verificarCredenciales();
       $di = $this->session->userdata('idSessionBack');
       $data['idse'] = $di;
-
       $data['opcionMenu'] = '1';
       if (isset($id) && !empty($id)) {
 
@@ -410,7 +297,7 @@ class admin extends CI_Controller {
           $data['fecha'] = $rew['fecha'];
 
 
-          //ARCHVIVOS
+          
           //FONDO
 
           $queryImg = $this->Archivos_Model->readArchivo($rew['id'], 'fondo');
@@ -431,7 +318,7 @@ class admin extends CI_Controller {
               $data['textoID'] = $ruwT['id'];
             }//end of foreach
           }
-          
+            
          //Usuarios
          $queryUser = $this->Usuarios_Model->getUsuarioJoin($rew['id']);
          $useQuery = 0;
@@ -445,43 +332,35 @@ class admin extends CI_Controller {
             }//end if row Usuarios
            $data['totalUsuarios'] = $useQuery;
 
-          $queryImg = $this->Archivos_Model->readArchivo($rew['id'], 'archivos');
+         //ARCHIVOS
+          $queryArch = $this->Archivos_Model->readArchivo($rew['id'], 'archivos');
           $tltQuery = 0;
-          if ($queryImg->num_rows()>0) {
-            foreach ($queryImg->result_array() as $rewArchivos) {
-              //echo "<BR>".$rewArchivos['url']."/".$rewArchivos['nombre']."<BR>";
-              $data['tituloArch'][$tltQuery] = $rewArchivos['titulo']; 
-              $data['archivos'][$tltQuery] = $rewArchivos['url']."/".$rewArchivos['nombre']; 
+          if ($queryArch->num_rows()>0) {
+            foreach ($queryArch->result_array() as $rewArchivos) {
+              $data['archivos'][$tltQuery] = $rewArchivos['url']."/".$rew['nombre']; 
               $data['archivosID'][$tltQuery] = $rewArchivos['id']; 
+              $data['tituloa'][$tltQuery] = $rewArchivos['titulo'];
               $tltQuery = $tltQuery + 1;
             }
           }
 
-          $data['totalArchivos'] = $tltQuery;
 
-          $this -> load ->view('admin/header', $data);
-          $this -> load ->view('admin/curso', $data);
-          $this -> load ->view('admin/footer');
 
 
         }else{
-
-        $this -> load ->view('admin/header', $data);
-        $this -> load ->view('admin/cursoNoExiste', $data);
-        $this -> load ->view('admin/footer');
-
+          $data['existe'] = 0;
         }//end of else
 
       }else{
 
-        $this -> load ->view('admin/header', $data);
-        $this -> load ->view('admin/cursoNoExiste', $data);
-        $this -> load ->view('admin/footer');
-
+        $data['existe'] = 0;
       }//end of else
 
+      $this -> load ->view('admin/header', $data);
+      $this -> load ->view('admin/curso');
+      $this -> load ->view('admin/footer');
 
-    }//end of curso
+    }//end of curso*/
     
     public function crearCurso(){
 
@@ -578,6 +457,9 @@ class admin extends CI_Controller {
 
     }//end of inicio
 
+
+
+
     public function editarCurso($id){
       $this -> verificarCredenciales();
       $di = $this->session->userdata('idSessionBack');
@@ -613,6 +495,9 @@ class admin extends CI_Controller {
       $this -> load ->view('admin/footer');
     
     }//end of editarCurso
+
+
+
 
     public function actualizarCurso(){
 
@@ -698,6 +583,9 @@ class admin extends CI_Controller {
 
     }//end of actualizarCurso
 
+
+
+
     public function eliminarCurso($id){
 
       echo "Voy a eliminar a --".$id."--";
@@ -766,8 +654,10 @@ class admin extends CI_Controller {
       redirect(base_url().'admin/cursos');
 
     }//end of eliminarCurso
-    
-/********************************* ARCHIVO  ***********************************/
+
+
+
+
 
     public function agregarArchivo($id){
 
@@ -797,6 +687,9 @@ class admin extends CI_Controller {
       $this -> load ->view('admin/footer');
 
     }//end of eliminarCurso
+
+
+
 
     public function guardarArchivo(){
 
@@ -870,6 +763,9 @@ class admin extends CI_Controller {
 
     }//end of eliminarCurso
 
+
+
+
     public function eliminarArchivo($id){
 
       $this -> verificarCredenciales();
@@ -893,17 +789,117 @@ class admin extends CI_Controller {
       redirect( base_url() . 'admin/curso/'.$idProgenitor); 
 
     }//end of eliminarCurso
-    
- /********************************* ACCESOS DE ADMIN  ***********************************/   
+
+
+
+
+
+    public function curso($id){
+
+      $this -> verificarCredenciales();
+      $di = $this->session->userdata('idSessionBack');
+      $data['idse'] = $di;
+
+      $data['opcionMenu'] = '1';
+      if (isset($id) && !empty($id)) {
+
+        $query = $this->Admin_Model->getCursoByID($id);
+        if ($query->num_rows()>0) {
+          foreach ($query->result_array() as $rew) {}//end of ForEach
+          $data['id'] = $rew['id'];
+          $data['nombre'] = $rew['nombre'];
+          $data['colorBorde'] = $rew['colorBorde'];
+          $data['colorBoton'] = $rew['colorBoton'];
+          $data['colorFuente'] = $rew['colorFuente'];
+          $data['contrasenia'] = $rew['contrasenia'];
+          $data['publicado'] = $rew['publicado'];
+          $data['fecha'] = $rew['fecha'];
+
+
+          //ARCHVIVOS
+          //FONDO
+
+          $queryImg = $this->Archivos_Model->readArchivo($rew['id'], 'fondo');
+          if ($queryImg->num_rows()>0) {
+            foreach ($queryImg->result_array() as $ruwF) {
+              $data['fondo'] = $ruwF['url']."/".$ruwF['nombre']; 
+              $data['fondoID'] = $ruwF['id'];
+            }//end of foreach
+          }
+
+
+          //TEXTO
+
+          $queryImg = $this->Archivos_Model->readArchivo($rew['id'], 'texto');
+          if ($queryImg->num_rows()>0) {
+            foreach ($queryImg->result_array() as $ruwT) {
+              $data['texto'] = $ruwT['url']."/".$ruwT['nombre']; 
+              $data['textoID'] = $ruwT['id'];
+            }//end of foreach
+          }
+          
+         //Usuarios
+         $queryUser = $this->Usuarios_Model->getUsuarioJoin($rew['id']);
+         $useQuery = 0;
+            if($queryUser->num_rows()>0){
+                foreach ($queryUser->result_array() as $riw){
+                    $data['unico'][$useQuery] = $riw['id'];
+                    $data['nuser'][$useQuery] = $riw['usuario'];
+                    $data['ndisp'][$useQuery] = $riw['activoCurso'];
+                    $useQuery = $useQuery + 1;
+                }//end of foreach
+            }//end if row Usuarios
+           $data['totalUsuarios'] = $useQuery;
+
+          $queryImg = $this->Archivos_Model->readArchivo($rew['id'], 'archivos');
+          $tltQuery = 0;
+          if ($queryImg->num_rows()>0) {
+            foreach ($queryImg->result_array() as $rewArchivos) {
+              //echo "<BR>".$rewArchivos['url']."/".$rewArchivos['nombre']."<BR>";
+              $data['tituloArch'][$tltQuery] = $rewArchivos['titulo']; 
+              $data['archivos'][$tltQuery] = $rewArchivos['url']."/".$rewArchivos['nombre']; 
+              $data['archivosID'][$tltQuery] = $rewArchivos['id']; 
+              $tltQuery = $tltQuery + 1;
+            }
+          }
+
+          $data['totalArchivos'] = $tltQuery;
+
+          $this -> load ->view('admin/header', $data);
+          $this -> load ->view('admin/curso', $data);
+          $this -> load ->view('admin/footer');
+
+
+        }else{
+
+        $this -> load ->view('admin/header', $data);
+        $this -> load ->view('admin/cursoNoExiste', $data);
+        $this -> load ->view('admin/footer');
+
+        }//end of else
+
+      }else{
+
+        $this -> load ->view('admin/header', $data);
+        $this -> load ->view('admin/cursoNoExiste', $data);
+        $this -> load ->view('admin/footer');
+
+      }//end of else
+
+
+    }//end of curso
+
+
+
     public function ajustes(){
       $this -> verificarCredenciales();
       $di = $this->session->userdata('idSessionBack');
       $data['idse'] = $di;
-      $data['opcionMenu'] = '5';
+      $data['opcionMenu'] = '3';
       $this -> load ->view('admin/header', $data);
       $this -> load ->view('admin/footer');
 
-    }//end of ajustes
+    }//end of inicio
 
     public function salir(){
       $this -> session -> set_userdata(array(
@@ -912,7 +908,8 @@ class admin extends CI_Controller {
               'contraseniaSessionBack' => ''
       ));
       redirect(base_url().'admin/login');
-    }//end of salir
+    }//end of inicio
+
 
     public function ingresar(){
 
@@ -953,7 +950,12 @@ class admin extends CI_Controller {
                 //echo "string";
             }
         }//end of else
-    }//end of ingresa -- NO SE PARA QUE ES?
+    }//end of fun
+
+
+
+
+
 
     public function registro(){
         $data['titulo'] = "LOGIN";
@@ -962,6 +964,6 @@ class admin extends CI_Controller {
         $this->load->view('frontEnd/inicio/login', $data);
         $this-> frase();
         $this->load->view('layout/frontEnd/footer', $data);
-    }// --NO SE PARA QUE SIRVE
+    }
 
 }//end of fu
